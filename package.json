@@ -1,0 +1,18 @@
+{
+  "name": "travel-operations-hub",
+  "version": "1.0.0",
+  "description": "Plataforma de Operaciones de Viajes con integración simulada de Google Sheets en tiempo real.",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "travel",
+    "operations",
+    "sheets",
+    "finance",
+    "sales"
+  ],
+  "author": "Lenin Aguilar / Noah",
+  "license": "MIT"
+}
