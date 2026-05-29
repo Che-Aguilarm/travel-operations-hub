@@ -4,6 +4,7 @@
   "description": "Plataforma de Operaciones de Viajes con integración simulada de Google Sheets en tiempo real.",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "dev": "node server.js"
   },
   "keywords": [
