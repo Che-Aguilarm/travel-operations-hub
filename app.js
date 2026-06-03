@@ -2,7 +2,181 @@
    TRAVELOPS HUB - PLATAFORMA DE OPERACIONES - LÓGICA DE APLICACIÓN (JS)
    ========================================================================== */
 
-// DATOS SEMILLA (MOCK DATA INITIALIZERS)
+// DATOS SEMILLA (MOCK DATA INITIALIZERS) - MÓDULOS SEPARADOS
+
+// ===== MÓDULO VENTAS: Información de clientes y precios =====
+const INITIAL_VENTAS = [
+    { 
+        id: "T-0001", 
+        cliente: "Lenin Aguilar Mamani", 
+        email: "lenin@empresa.com", 
+        telefono: "+51 987 654 321", 
+        pasaporte: "PAS998877", 
+        destino: "Cuzco, Perú", 
+        pax: 2, 
+        fechaIda: "2026-06-15", 
+        fechaVuelta: "2026-06-22", 
+        precioVenta: 1500.00, 
+        moneda: "USD", 
+        notas: "Habitación matrimonial con vista a la plaza. Traslados incluidos.",
+        estadoPago: "Pagado",
+        estadoFactura: "Facturado"
+    },
+    { 
+        id: "T-0002", 
+        cliente: "Sofía Rodríguez", 
+        email: "sofia.rod@gmail.com", 
+        telefono: "+51 965 432 109", 
+        pasaporte: "PAS112233", 
+        destino: "París, Francia", 
+        pax: 1, 
+        fechaIda: "2026-09-10", 
+        fechaVuelta: "2026-09-25", 
+        precioVenta: 2400.00, 
+        moneda: "USD", 
+        notas: "Vuelo de noche preferiblemente. Desayuno buffet incluido.",
+        estadoPago: "Pendiente",
+        estadoFactura: "Pendiente"
+    },
+    { 
+        id: "T-0003", 
+        cliente: "Carlos Mendoza", 
+        email: "carlos.m@outlook.com", 
+        telefono: "+51 941 852 963", 
+        pasaporte: "PAS445566", 
+        destino: "Chanchamayo, Perú", 
+        pax: 4, 
+        fechaIda: "2026-07-28", 
+        fechaVuelta: "2026-08-02", 
+        precioVenta: 750.00, 
+        moneda: "USD", 
+        notas: "Viaje terrestre contratado por su cuenta.",
+        estadoPago: "Pagado",
+        estadoFactura: "Pendiente"
+    },
+    { 
+        id: "T-0004", 
+        cliente: "Emily Watson", 
+        email: "emily.w@travel.com", 
+        telefono: "+1 305 123 4567", 
+        pasaporte: "PAS789012", 
+        destino: "Cancún, México", 
+        pax: 3, 
+        fechaIda: "2026-08-05", 
+        fechaVuelta: "2026-08-12", 
+        precioVenta: 1850.00, 
+        moneda: "USD", 
+        notas: "Familia con niños menores. Todo incluido.",
+        estadoPago: "Pagado",
+        estadoFactura: "Facturado"
+    }
+];
+
+// ===== MÓDULO OPERACIONES: Reservas, proveedores asignados y estado operativo =====
+const INITIAL_OPERACIONES = [
+    { 
+        id: "T-0001", 
+        vueloProv: "LATAM Airlines", 
+        vueloCodigo: "LA2015", 
+        vueloCosto: 350.00,
+        hotelProv: "Hilton Hotels Group", 
+        hotelCodigo: "HL-88741", 
+        hotelCosto: 550.00,
+        estadoOp: "Confirmado",
+        tours: [
+            { id: "tr-1", fecha: "2026-06-16", titulo: "City Tour Cusco", hora: "09:00", operador: "Cusco Guides S.A." },
+            { id: "tr-2", fecha: "2026-06-18", titulo: "Excursión Machu Picchu Clásico", hora: "05:30", operador: "Inca Rail S.A." }
+        ],
+        archivos: []
+    },
+    { 
+        id: "T-0002", 
+        vueloProv: "Iberia Líneas Aéreas", 
+        vueloCodigo: "IB6820", 
+        vueloCosto: 850.00,
+        hotelProv: "ibis Paris Tour Eiffel", 
+        hotelCodigo: "", 
+        hotelCosto: 600.00,
+        estadoOp: "En Proceso",
+        tours: [
+            { id: "tr-3", fecha: "2026-09-12", titulo: "Crucero nocturno Sena", hora: "19:30", operador: "Paris Bateaux" },
+            { id: "tr-4", fecha: "2026-09-15", titulo: "Visita Guiada Louvre", hora: "10:00", operador: "Paris City Vision" }
+        ],
+        archivos: []
+    },
+    { 
+        id: "T-0003", 
+        vueloProv: "Ninguno", 
+        vueloCodigo: "Terrestre", 
+        vueloCosto: 0.00,
+        hotelProv: "Selina Hostels S.A.", 
+        hotelCodigo: "", 
+        hotelCosto: 380.00,
+        estadoOp: "Por Reservar",
+        tours: [
+            { id: "tr-5", fecha: "2026-07-29", titulo: "Trekking Catarata Bayoz", hora: "08:00", operador: "Selina Chanchamayo Guides" }
+        ],
+        archivos: []
+    },
+    { 
+        id: "T-0004", 
+        vueloProv: "American Airlines", 
+        vueloCodigo: "AA871", 
+        vueloCosto: 520.00,
+        hotelProv: "Riu Palace Cancún", 
+        hotelCodigo: "RP-12345", 
+        hotelCosto: 720.00,
+        estadoOp: "Confirmado",
+        tours: [],
+        archivos: []
+    }
+];
+
+// ===== MÓDULO FINANZAS: Ingresos, costos y utilidades =====
+const INITIAL_FINANZAS = [
+    { 
+        id: "T-0001", 
+        precioVenta: 1500.00, 
+        costoVuelo: 350.00,
+        costoHotel: 550.00,
+        costoTotal: 900.00,
+        utilidad: 600.00,
+        margenPorcentaje: 40.0,
+        estado: "Pagado"
+    },
+    { 
+        id: "T-0002", 
+        precioVenta: 2400.00, 
+        costoVuelo: 850.00,
+        costoHotel: 600.00,
+        costoTotal: 1450.00,
+        utilidad: 950.00,
+        margenPorcentaje: 39.6,
+        estado: "Pendiente"
+    },
+    { 
+        id: "T-0003", 
+        precioVenta: 750.00, 
+        costoVuelo: 0.00,
+        costoHotel: 380.00,
+        costoTotal: 380.00,
+        utilidad: 370.00,
+        margenPorcentaje: 49.3,
+        estado: "Pagado"
+    },
+    { 
+        id: "T-0004", 
+        precioVenta: 1850.00, 
+        costoVuelo: 520.00,
+        costoHotel: 720.00,
+        costoTotal: 1240.00,
+        utilidad: 610.00,
+        margenPorcentaje: 33.0,
+        estado: "Pagado"
+    }
+];
+
+// DATOS LEGACY (Mantener para compatibilidad backward)
 const INITIAL_SUPPLIERS = [
     { id: "S-001", nombre: "LATAM Airlines", tipo: "Vuelo", contacto: "Claudia Pizarro", email: "corporativo.pe@latam.com", telefono: "+51 1 2138200", detalles: "Descuento del 10% en vuelos nacionales. PNR inmediato." },
     { id: "S-002", nombre: "Iberia Líneas Aéreas", tipo: "Vuelo", contacto: "Manuel Torres", email: "agencias.es@iberia.com", telefono: "+34 901 111 500", detalles: "Tarifas especiales para vuelos transatlánticos a Europa." },
@@ -146,17 +320,309 @@ const INITIAL_BOOKINGS = [
     }
 ];
 
+// CONFIGURACION GOOGLE SHEETS - 3 HOJAS SEPARADAS
+// Cada módulo tiene su propia hoja de Google Sheets para mayor flexibilidad
+// Pega aquí las URLs publicadas de tus Google Apps Scripts Web Apps
+const GOOGLE_SHEETS_VENTAS_URL = "https://script.google.com/macros/s/AKfycbzIurf8u3nt9nndXrryAIOP0SPI1-OzhwM6T84LowpWtf-I-KxTMJcqTcfBM5G5pDft9w/exec"; // Hoja de VENTAS (clientes, precios)
+const GOOGLE_SHEETS_OPERACIONES_URL = "https://script.google.com/macros/s/AKfycbw6HCmlHL7yOSmTZeIFyH1Zmh6huw3rue8TY0Mgykr-W429miWh6omq6pBjTmvUFIBiFw/exec"; // Hoja de OPERACIONES (reservas, proveedores)
+const GOOGLE_SHEETS_FINANZAS_URL = "https://script.google.com/macros/s/AKfycbzPyrXOnBff1FJ-iW7zXQtpckdgUz2i7_W8pEPy0D9QSsB4_QFYTpecSrEZje6wYTZs/exec"; // Hoja de FINANZAS (ingresos, costos)
+
+const STORAGE_KEYS = {
+    // Nuevas claves para módulos separados
+    ventas: "travelOps_ventas",
+    operaciones: "travelOps_operaciones",
+    finanzas: "travelOps_finanzas",
+    suppliers: "travelOps_suppliers",
+    // Legacy key (para compatibilidad backward)
+    bookings: "travelOps_bookings"
+};
+
+const dataSource = {
+    // Verificar si está habilitada la sincronización remota para cada módulo
+    get isVentasEnabled() {
+        return GOOGLE_SHEETS_VENTAS_URL.trim().length > 0;
+    },
+    get isOperacionesEnabled() {
+        return GOOGLE_SHEETS_OPERACIONES_URL.trim().length > 0;
+    },
+    get isFinanzasEnabled() {
+        return GOOGLE_SHEETS_FINANZAS_URL.trim().length > 0;
+    },
+    get isRemoteEnabled() {
+        // Compatibilidad con código antiguo
+        return this.isVentasEnabled || this.isOperacionesEnabled || this.isFinanzasEnabled;
+    },
+
+    async loadAll() {
+        // Cargar Ventas
+        const ventas = await this.loadModule("ventas", GOOGLE_SHEETS_VENTAS_URL, STORAGE_KEYS.ventas, []);
+        
+        // Cargar Operaciones
+        const operaciones = await this.loadModule("operaciones", GOOGLE_SHEETS_OPERACIONES_URL, STORAGE_KEYS.operaciones, []);
+        
+        // Cargar Finanzas
+        const finanzas = await this.loadModule("finanzas", GOOGLE_SHEETS_FINANZAS_URL, STORAGE_KEYS.finanzas, []);
+        
+        // Cargar Proveedores (mantener como antes, no cambia)
+        const suppliers = loadLocalCollection(STORAGE_KEYS.suppliers, INITIAL_SUPPLIERS);
+
+        return { ventas, operaciones, finanzas, suppliers };
+    },
+
+    async loadModule(moduleName, url, storageKey, fallbackData) {
+        if (url && url.trim().length > 0) {
+            try {
+                const remoteData = await this.request(url, "getModule", { module: moduleName });
+                if (remoteData && Array.isArray(remoteData)) {
+                    localStorage.setItem(storageKey, JSON.stringify(remoteData));
+                    return remoteData;
+                }
+            } catch (error) {
+                console.warn(`No se pudo cargar ${moduleName} desde Google Sheets. Usando copia local.`, error);
+            }
+        }
+        return loadLocalCollection(storageKey, fallbackData);
+    },
+
+    async saveAll(ventas, operaciones, finanzas, suppliers) {
+        // Guardar en localStorage siempre
+        localStorage.setItem(STORAGE_KEYS.ventas, JSON.stringify(ventas));
+        localStorage.setItem(STORAGE_KEYS.operaciones, JSON.stringify(operaciones));
+        localStorage.setItem(STORAGE_KEYS.finanzas, JSON.stringify(finanzas));
+        localStorage.setItem(STORAGE_KEYS.suppliers, JSON.stringify(suppliers));
+
+        const results = [];
+
+        // Guardar cada módulo en su URL correspondiente
+        if (this.isVentasEnabled) {
+            try {
+                const result = await this.request(GOOGLE_SHEETS_VENTAS_URL, "saveModule", { 
+                    module: "ventas", 
+                    data: ventas 
+                });
+                results.push({ module: "ventas", ...result });
+            } catch (error) {
+                console.warn("No se pudo guardar Ventas en Google Sheets.", error);
+                results.push({ module: "ventas", source: "local", error: error.message });
+            }
+        } else {
+            results.push({ module: "ventas", source: "local" });
+        }
+
+        if (this.isOperacionesEnabled) {
+            try {
+                const result = await this.request(GOOGLE_SHEETS_OPERACIONES_URL, "saveModule", { 
+                    module: "operaciones", 
+                    data: operaciones 
+                });
+                results.push({ module: "operaciones", ...result });
+            } catch (error) {
+                console.warn("No se pudo guardar Operaciones en Google Sheets.", error);
+                results.push({ module: "operaciones", source: "local", error: error.message });
+            }
+        } else {
+            results.push({ module: "operaciones", source: "local" });
+        }
+
+        if (this.isFinanzasEnabled) {
+            try {
+                const result = await this.request(GOOGLE_SHEETS_FINANZAS_URL, "saveModule", { 
+                    module: "finanzas", 
+                    data: finanzas 
+                });
+                results.push({ module: "finanzas", ...result });
+            } catch (error) {
+                console.warn("No se pudo guardar Finanzas en Google Sheets.", error);
+                results.push({ module: "finanzas", source: "local", error: error.message });
+            }
+        } else {
+            results.push({ module: "finanzas", source: "local" });
+        }
+
+        return results;
+    },
+
+    async uploadFile(bookingId, file) {
+        if (!this.isVentasEnabled) {
+            throw new Error("Configura GOOGLE_SHEETS_VENTAS_URL para subir archivos a Drive.");
+        }
+
+        const dataUrl = await fileToDataUrl(file);
+        const base64Data = dataUrl.split(",")[1];
+
+        return await this.request(GOOGLE_SHEETS_VENTAS_URL, "uploadFile", {
+            bookingId,
+            fileName: file.name,
+            mimeType: file.type || "application/octet-stream",
+            base64Data
+        });
+    },
+
+    async request(url, action, payload = {}) {
+        const response = await fetch(url, {
+            method: "POST",
+            body: JSON.stringify({ action, ...payload })
+        });
+
+        const result = await response.json();
+        if (!result.ok) {
+            throw new Error(result.error || "Respuesta invalida de Google Sheets.");
+        }
+
+        return result.data;
+    }
+};
+
+function loadLocalCollection(storageKey, fallbackData) {
+    const storedValue = localStorage.getItem(storageKey);
+    if (storedValue) {
+        return JSON.parse(storedValue);
+    }
+
+    localStorage.setItem(storageKey, JSON.stringify(fallbackData));
+    return fallbackData;
+}
+
+function fileToDataUrl(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(reader.error);
+        reader.readAsDataURL(file);
+    });
+}
+
 // ESTADO CENTRALIZADO (APPLICATION STATE)
 let state = {
-    bookings: [],
-    suppliers: [],
+    // Nuevos módulos separados
+    ventas: [],        // Información de clientes y precios
+    operaciones: [],   // Reservas, proveedores, tours
+    finanzas: [],      // Ingresos, costos, utilidades
+    
+    // Legacy (para compatibilidad backward)
+    bookings: [],      // Vista consolidada (sintetizada desde ventas + operaciones)
+    
+    suppliers: [],     // Catálogo de proveedores (compartido)
     currentView: "view-ventas",
     selectedCell: null,
     filterOp: "all",
     calendarYear: 2026,
     calendarMonth: 5, // Junio (0-indexed: 5 = Junio)
-    selectedCalendarDate: "2026-06-15"
+    selectedCalendarDate: "2026-06-15",
+    usuarios: [],
+    historial: [],
+    errores: [],
+    archivos: [],
+    usuarioActual: null,
+    loginTime: null
 };
+
+// ==========================================================================
+// SÍNTESIS DE MÓDULOS: Combinar Ventas + Operaciones + Finanzas
+// ==========================================================================
+function synthesizeBookings() {
+    /**
+     * Crea un array de bookings consolidado fusionando datos de:
+     * - state.ventas (cliente, precios)
+     * - state.operaciones (proveedores, tours, estado operativo)
+     * - state.finanzas (costos, utilidades)
+     */
+    state.bookings = state.ventas.map(venta => {
+        const operacion = state.operaciones.find(op => op.id === venta.id) || {};
+        const finanza = state.finanzas.find(fin => fin.id === venta.id) || {};
+
+        return {
+            // De Ventas
+            id: venta.id,
+            cliente: venta.cliente,
+            email: venta.email,
+            telefono: venta.telefono,
+            pasaporte: venta.pasaporte,
+            destino: venta.destino,
+            pax: venta.pax,
+            fechaIda: venta.fechaIda,
+            fechaVuelta: venta.fechaVuelta,
+            precioVenta: venta.precioVenta,
+            moneda: venta.moneda,
+            notas: venta.notas,
+            estadoPago: venta.estadoPago,
+            estadoFactura: venta.estadoFactura,
+
+            // De Operaciones
+            vueloProv: operacion.vueloProv || "Pendiente",
+            vueloCodigo: operacion.vueloCodigo || "",
+            vueloCosto: operacion.vueloCosto || 0,
+            hotelProv: operacion.hotelProv || "Pendiente",
+            hotelCodigo: operacion.hotelCodigo || "",
+            hotelCosto: operacion.hotelCosto || 0,
+            estadoOp: operacion.estadoOp || "Por Reservar",
+            tours: operacion.tours || [],
+            archivos: operacion.archivos || [],
+            historial: operacion.historial || [],
+
+            // De Finanzas
+            costoVuelo: finanza.costoVuelo || 0,
+            costoHotel: finanza.costoHotel || 0,
+            costoTotal: finanza.costoTotal || 0,
+            utilidad: finanza.utilidad || 0,
+            margenPorcentaje: finanza.margenPorcentaje || 0,
+            estadoFinanzas: finanza.estado || "Pendiente"
+        };
+    });
+}
+
+function updateStateAndSync() {
+    /**
+     * Actualiza cada módulo desde state.bookings y sincroniza con Google Sheets
+     */
+    // Extraer datos de bookings hacia los módulos separados
+    state.ventas = state.bookings.map(b => ({
+        id: b.id,
+        cliente: b.cliente,
+        email: b.email,
+        telefono: b.telefono,
+        pasaporte: b.pasaporte,
+        destino: b.destino,
+        pax: b.pax,
+        fechaIda: b.fechaIda,
+        fechaVuelta: b.fechaVuelta,
+        precioVenta: b.precioVenta,
+        moneda: b.moneda,
+        notas: b.notas,
+        estadoPago: b.estadoPago,
+        estadoFactura: b.estadoFactura
+    }));
+
+    state.operaciones = state.bookings.map(b => ({
+        id: b.id,
+        vueloProv: b.vueloProv,
+        vueloCodigo: b.vueloCodigo,
+        vueloCosto: b.vueloCosto,
+        hotelProv: b.hotelProv,
+        hotelCodigo: b.hotelCodigo,
+        hotelCosto: b.hotelCosto,
+        estadoOp: b.estadoOp,
+        tours: b.tours || [],
+        archivos: b.archivos || [],
+        historial: b.historial || []
+    }));
+
+    state.finanzas = state.bookings.map(b => ({
+        id: b.id,
+        precioVenta: b.precioVenta,
+        costoVuelo: b.vueloCosto,
+        costoHotel: b.hotelCosto,
+        costoTotal: (b.vueloCosto || 0) + (b.hotelCosto || 0),
+        utilidad: b.precioVenta - ((b.vueloCosto || 0) + (b.hotelCosto || 0)),
+        margenPorcentaje: b.precioVenta > 0 ? (((b.precioVenta - ((b.vueloCosto || 0) + (b.hotelCosto || 0))) / b.precioVenta) * 100) : 0,
+        estado: b.estadoPago
+    }));
+
+    // Guardar en localStorage y Google Sheets
+    dataSource.saveAll(state.ventas, state.operaciones, state.finanzas, state.suppliers);
+    
+    renderAllViews();
+}
 
 // ==========================================================================
 // INICIALIZACIÓN
@@ -165,29 +631,41 @@ document.addEventListener("DOMContentLoaded", () => {
     initApp();
 });
 
-function initApp() {
-    // Cargar desde localStorage o inicializar con mock data
-    const localBookings = localStorage.getItem("travelOps_bookings");
-    const localSuppliers = localStorage.getItem("travelOps_suppliers");
+async function initApp() {
+    // Cargar los 3 módulos separados
+    const initialData = await dataSource.loadAll();
+    state.ventas = initialData.ventas || [];
+    state.operaciones = initialData.operaciones || [];
+    state.finanzas = initialData.finanzas || [];
+    state.suppliers = initialData.suppliers || [];
 
-    if (localBookings) {
-        state.bookings = JSON.parse(localBookings);
-    } else {
-        state.bookings = INITIAL_BOOKINGS;
-        localStorage.setItem("travelOps_bookings", JSON.stringify(state.bookings));
+    // Aplicar fallbacks a datos iniciales si están vacíos
+    if (state.ventas.length === 0) {
+        state.ventas = INITIAL_VENTAS;
+        localStorage.setItem(STORAGE_KEYS.ventas, JSON.stringify(state.ventas));
+    }
+    if (state.operaciones.length === 0) {
+        state.operaciones = INITIAL_OPERACIONES;
+        localStorage.setItem(STORAGE_KEYS.operaciones, JSON.stringify(state.operaciones));
+    }
+    if (state.finanzas.length === 0) {
+        state.finanzas = INITIAL_FINANZAS;
+        localStorage.setItem(STORAGE_KEYS.finanzas, JSON.stringify(state.finanzas));
+    }
+    if (state.suppliers.length === 0) {
+        state.suppliers = INITIAL_SUPPLIERS;
+        localStorage.setItem(STORAGE_KEYS.suppliers, JSON.stringify(state.suppliers));
     }
 
-    // Asegurar que todas las reservas tengan el array de tours
+    // Sintetizar bookings desde los 3 módulos
+    synthesizeBookings();
+
+    // Asegurar que todas las reservas tengan los arrays necesarios
     state.bookings.forEach(b => {
         b.tours = b.tours || [];
+        b.archivos = b.archivos || [];
+        b.historial = b.historial || [];
     });
-
-    if (localSuppliers) {
-        state.suppliers = JSON.parse(localSuppliers);
-    } else {
-        state.suppliers = INITIAL_SUPPLIERS;
-        localStorage.setItem("travelOps_suppliers", JSON.stringify(state.suppliers));
-    }
 
     // Inicializar Fechas del Formulario con fecha de mañana por defecto
     const tomorrow = new Date();
@@ -201,6 +679,9 @@ function initApp() {
     document.getElementById("viaje-fecha-ida").value = formattedTomorrow;
     document.getElementById("viaje-fecha-vuelta").value = formattedNextWeek;
 
+    // Cargar datos del almacenamiento
+    loadStorageData();
+
     // Configurar Event Listeners de Navegación, Formularios y Modales
     setupNavigation();
     setupForms();
@@ -208,18 +689,19 @@ function initApp() {
     setupSheetsActions();
     setupThemeToggle();
     setupCalendarListeners();
+    setupNewFeatures();
+
+    // Si no hay usuario autenticado, mostrar login
+    if (!state.usuarioActual) {
+        showLoginModal();
+    }
 
     // Renderizar vistas iniciales
     renderAllViews();
 }
 
 // GUARDAR ESTADO A STORAGE Y RE-RENDERIZAR
-function updateStateAndSync() {
-    localStorage.setItem("travelOps_bookings", JSON.stringify(state.bookings));
-    localStorage.setItem("travelOps_suppliers", JSON.stringify(state.suppliers));
-    renderAllViews();
-    triggerSheetsSyncAnimation();
-}
+
 
 // ANIMACIÓN DE SINCRONIZACIÓN DE GOOGLE SHEETS
 function triggerSheetsSyncAnimation() {
@@ -256,6 +738,10 @@ function renderAllViews() {
     renderFinanzasView();
     renderProveedoresView();
     renderCalendarView();
+    renderHistorialView();
+    renderUsuariosView();
+    renderErroresView();
+    renderArchivosView();
     updateGlobalMetrics();
 }
 
@@ -518,9 +1004,50 @@ function renderOperacionesView() {
     document.getElementById("count-pending").innerText = countPending;
     document.getElementById("count-process").innerText = countProcess;
     document.getElementById("count-confirmed").innerText = countConfirmed;
+    renderOperationsHistory();
 }
 
 // 4. RENDERIZAR MÓDULO DE FINANZAS (FINANZAS Y CONTROL)
+function renderOperationsHistory() {
+    const list = document.getElementById("operations-history-list");
+    const counter = document.getElementById("op-history-count");
+    if (!list || !counter) return;
+
+    const entries = state.bookings
+        .flatMap(booking => (booking.historial || []).map(entry => ({
+            ...entry,
+            bookingId: booking.id,
+            cliente: booking.cliente,
+            destino: booking.destino
+        })))
+        .sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+
+    counter.innerText = `${entries.length} cambios`;
+    list.innerHTML = "";
+
+    if (entries.length === 0) {
+        list.innerHTML = `<div class="history-empty">Todavia no hay modificaciones registradas en Operaciones.</div>`;
+        return;
+    }
+
+    entries.slice(0, 80).forEach(entry => {
+        const item = document.createElement("div");
+        item.className = "history-entry";
+        item.innerHTML = `
+            <div class="history-entry-main">
+                <div class="history-entry-title">${escapeHTML(entry.accion)}</div>
+                <div class="history-entry-desc">${escapeHTML(entry.detalle)}</div>
+                <div class="history-entry-context">${escapeHTML(entry.bookingId)} | ${escapeHTML(entry.cliente)} | ${escapeHTML(entry.destino)}</div>
+            </div>
+            <div class="history-entry-meta">
+                <span>${formatDateTime(entry.fecha)}</span>
+                <span>${escapeHTML(entry.usuario || "TravelOps")}</span>
+            </div>
+        `;
+        list.appendChild(item);
+    });
+}
+
 function renderFinanzasView() {
     const ledgerBody = document.getElementById("finance-ledger-body");
     ledgerBody.innerHTML = "";
@@ -723,10 +1250,13 @@ function setupForms() {
             hotelCosto: 0.00,
             estadoPago: "Pendiente",
             estadoFactura: "Pendiente",
-            estadoOp: "Por Reservar"
+            estadoOp: "Por Reservar",
+            tours: [],
+            archivos: [],
+            historial: []
         };
 
-        // Guardar en el estado y en localStorage
+        // Guardar en el estado y sincronizar con la fuente configurada.
         state.bookings.push(newBooking);
         updateStateAndSync();
 
@@ -775,10 +1305,7 @@ function setupForms() {
         };
 
         state.suppliers.push(newSupplier);
-        
-        // Guardar y renderizar
-        localStorage.setItem("travelOps_suppliers", JSON.stringify(state.suppliers));
-        renderProveedoresView();
+        updateStateAndSync();
         
         // Limpiar formulario y cerrar modal
         provForm.reset();
@@ -824,6 +1351,16 @@ function setupModals() {
         // Encontrar y actualizar booking
         const booking = state.bookings.find(b => b.id === bId);
         if (booking) {
+            const trackedChanges = collectBookingChanges(booking, {
+                vueloProv,
+                vueloCodigo,
+                vueloCosto,
+                hotelProv,
+                hotelCodigo,
+                hotelCosto,
+                estadoOp
+            });
+
             booking.vueloProv = vueloProv;
             booking.vueloCodigo = vueloCodigo;
             booking.vueloCosto = vueloCosto;
@@ -833,6 +1370,10 @@ function setupModals() {
             booking.hotelCosto = hotelCosto;
 
             booking.estadoOp = estadoOp;
+
+            if (trackedChanges.length > 0) {
+                addOperationHistory(booking, "Actualizacion de operaciones", trackedChanges);
+            }
 
             updateStateAndSync();
             closeModal("modal-operaciones-detalle");
@@ -944,14 +1485,79 @@ function openOperationsModal(bookingId) {
         toursList.querySelectorAll(".btn-delete-tour-inline").forEach(btn => {
             btn.addEventListener("click", (e) => {
                 const idx = parseInt(e.currentTarget.getAttribute("data-index"));
+                const deletedTour = b.tours[idx];
                 b.tours.splice(idx, 1);
+                addOperationHistory(b, "Tour eliminado", [
+                    {
+                        campo: "Tours",
+                        anterior: deletedTour ? `${deletedTour.titulo} (${deletedTour.fecha})` : "Tour",
+                        nuevo: "Eliminado"
+                    }
+                ]);
                 updateStateAndSync();
                 renderModalTours();
+                renderModalHistory();
             });
         });
     }
 
     renderModalTours();
+
+    function renderModalFiles() {
+        const filesList = document.getElementById("modal-files-list");
+        filesList.innerHTML = "";
+
+        b.archivos = b.archivos || [];
+
+        if (b.archivos.length === 0) {
+            filesList.innerHTML = `<span class="empty-files-message">No hay archivos subidos para esta reserva.</span>`;
+            return;
+        }
+
+        b.archivos.forEach(file => {
+            const fileItem = document.createElement("a");
+            fileItem.className = "modal-file-link";
+            fileItem.href = file.url;
+            fileItem.target = "_blank";
+            fileItem.rel = "noopener noreferrer";
+            fileItem.innerHTML = `
+                <span class="modal-file-name">${escapeHTML(file.name)}</span>
+                <span class="modal-file-meta">${escapeHTML(file.mimeType || "archivo")} | ${formatFileSize(file.size)}</span>
+            `;
+            filesList.appendChild(fileItem);
+        });
+    }
+
+    renderModalFiles();
+
+    function renderModalHistory() {
+        const historyList = document.getElementById("modal-history-list");
+        historyList.innerHTML = "";
+
+        b.historial = b.historial || [];
+
+        if (b.historial.length === 0) {
+            historyList.innerHTML = `<div class="history-empty">Todavia no hay modificaciones registradas para esta reserva.</div>`;
+            return;
+        }
+
+        [...b.historial].sort((a, c) => new Date(c.fecha) - new Date(a.fecha)).forEach(entry => {
+            const item = document.createElement("div");
+            item.className = "history-entry compact";
+            item.innerHTML = `
+                <div class="history-entry-main">
+                    <div class="history-entry-title">${escapeHTML(entry.accion)}</div>
+                    <div class="history-entry-desc">${escapeHTML(entry.detalle)}</div>
+                </div>
+                <div class="history-entry-meta">
+                    <span>${formatDateTime(entry.fecha)}</span>
+                </div>
+            `;
+            historyList.appendChild(item);
+        });
+    }
+
+    renderModalHistory();
 
     // Eliminar listener inline viejo del botón de agregar si existiera (por clonación)
     const addTourBtn = document.getElementById("btn-add-tour-inline");
@@ -979,11 +1585,68 @@ function openOperationsModal(bookingId) {
         };
 
         b.tours.push(newTour);
+        addOperationHistory(b, "Tour agregado", [
+            {
+                campo: "Tours",
+                anterior: "Sin registro",
+                nuevo: `${newTour.titulo} (${newTour.fecha})`
+            }
+        ]);
         updateStateAndSync();
         renderModalTours();
+        renderModalHistory();
 
         titleInput.value = "";
         fechaInput.value = "";
+    });
+
+    const uploadFilesBtn = document.getElementById("btn-upload-drive-files");
+    const newUploadFilesBtn = uploadFilesBtn.cloneNode(true);
+    uploadFilesBtn.parentNode.replaceChild(newUploadFilesBtn, uploadFilesBtn);
+
+    newUploadFilesBtn.addEventListener("click", async () => {
+        const fileInput = document.getElementById("m-drive-files");
+        const uploadStatus = document.getElementById("m-upload-status");
+        const selectedFiles = Array.from(fileInput.files || []);
+
+        if (selectedFiles.length === 0) {
+            alert("Selecciona uno o mas archivos para subir a Drive.");
+            return;
+        }
+
+        if (!dataSource.isRemoteEnabled) {
+            alert("Primero configura GOOGLE_SHEETS_WEB_APP_URL en app.js para vincular la app con tu cuenta de Drive.");
+            return;
+        }
+
+        newUploadFilesBtn.disabled = true;
+        uploadStatus.innerText = `Subiendo ${selectedFiles.length} archivo(s) a Drive...`;
+
+        try {
+            for (const file of selectedFiles) {
+                const uploadedFile = await dataSource.uploadFile(b.id, file);
+                b.archivos.push(uploadedFile);
+                addOperationHistory(b, "Archivo subido a Drive", [
+                    {
+                        campo: "Archivos",
+                        anterior: "Sin archivo",
+                        nuevo: uploadedFile.name
+                    }
+                ]);
+            }
+
+            await updateStateAndSync();
+            renderModalFiles();
+            renderModalHistory();
+            fileInput.value = "";
+            uploadStatus.innerText = "Archivos subidos y vinculados correctamente.";
+        } catch (error) {
+            console.error(error);
+            uploadStatus.innerText = "No se pudo subir el archivo. Revisa la configuracion de Apps Script.";
+            alert(error.message);
+        } finally {
+            newUploadFilesBtn.disabled = false;
+        }
     });
 
     // Disparar recálculo inicial de utilidad
@@ -1054,20 +1717,41 @@ function closeModal(modalId) {
 // ACTIONS DE GOOGLE SHEETS LIVE
 // ==========================================================================
 function setupSheetsActions() {
-    // Botón de Sincronización Manual
-    document.getElementById("btn-sync-sheets").addEventListener("click", () => {
+    // Botón de Sincronización Manual - Ahora sincroniza los 3 módulos separados
+    document.getElementById("btn-sync-sheets").addEventListener("click", async () => {
+        if (!dataSource.isRemoteEnabled) {
+            alert("Configura las URLs de Google Sheets en app.js:\n- GOOGLE_SHEETS_VENTAS_URL\n- GOOGLE_SHEETS_OPERACIONES_URL\n- GOOGLE_SHEETS_FINANZAS_URL");
+            return;
+        }
+
+        const remoteData = await dataSource.loadAll();
+        state.ventas = remoteData.ventas || [];
+        state.operaciones = remoteData.operaciones || [];
+        state.finanzas = remoteData.finanzas || [];
+        state.suppliers = remoteData.suppliers || [];
+
+        // Sintetizar bookings desde los 3 módulos
+        synthesizeBookings();
+
+        state.bookings.forEach(b => {
+            b.tours = b.tours || [];
+            b.archivos = b.archivos || [];
+            b.historial = b.historial || [];
+        });
+
+        renderAllViews();
         triggerSheetsSyncAnimation();
-        alert("☁️ Conectando con Google Drive... Sincronizando datos de ventas y reservas con la hoja 'BD_Ventas_y_Reservas'. ¡Cambios reflejados en la nube con éxito!");
+        alert("Datos de los 3 módulos (Ventas, Operaciones, Finanzas) recargados desde Google Sheets correctamente.");
     });
 
-    // Botón para Exportar CSV real
+    // Botón para Exportar CSV de Ventas
     document.getElementById("btn-export-csv").addEventListener("click", () => {
-        exportToCSV(state.bookings, "BD_Ventas_y_Reservas.csv");
+        exportToCSV(state.ventas, "BD_Ventas.csv");
     });
 
     // Eventos para reportes financieros
     document.getElementById("btn-export-finance-report").addEventListener("click", () => {
-        exportToCSV(state.bookings, "Reporte_Operaciones_Financieras.csv");
+        exportToCSV(state.finanzas, "Reporte_Finanzas.csv");
     });
 }
 
@@ -1215,6 +1899,71 @@ function formatCurrency(value) {
         style: 'currency',
         currency: 'USD'
     }).format(value);
+}
+
+function formatFileSize(bytes) {
+    const size = Number(bytes || 0);
+    if (size < 1024) return `${size} B`;
+    if (size < 1024 * 1024) return `${(size / 1024).toFixed(1)} KB`;
+    if (size < 1024 * 1024 * 1024) return `${(size / (1024 * 1024)).toFixed(1)} MB`;
+    return `${(size / (1024 * 1024 * 1024)).toFixed(1)} GB`;
+}
+
+function formatDateTime(value) {
+    if (!value) return "";
+    return new Date(value).toLocaleString("es-PE", {
+        dateStyle: "short",
+        timeStyle: "short"
+    });
+}
+
+function collectBookingChanges(booking, nextValues) {
+    const fieldLabels = {
+        vueloProv: "Proveedor de vuelo",
+        vueloCodigo: "Codigo PNR",
+        vueloCosto: "Costo de vuelo",
+        hotelProv: "Proveedor de hospedaje",
+        hotelCodigo: "Codigo de hospedaje",
+        hotelCosto: "Costo de hospedaje",
+        estadoOp: "Estado operativo"
+    };
+
+    return Object.keys(nextValues).reduce((changes, field) => {
+        const previousValue = booking[field] ?? "";
+        const nextValue = nextValues[field] ?? "";
+        const normalizedPrevious = typeof previousValue === "number" ? Number(previousValue) : String(previousValue);
+        const normalizedNext = typeof nextValue === "number" ? Number(nextValue) : String(nextValue);
+
+        if (normalizedPrevious !== normalizedNext) {
+            changes.push({
+                campo: fieldLabels[field] || field,
+                anterior: formatHistoryValue(previousValue),
+                nuevo: formatHistoryValue(nextValue)
+            });
+        }
+
+        return changes;
+    }, []);
+}
+
+function addOperationHistory(booking, action, changes) {
+    if (!booking || !changes || changes.length === 0) return;
+
+    booking.historial = booking.historial || [];
+    booking.historial.unshift({
+        id: "hist-" + Date.now() + "-" + Math.random().toString(36).slice(2, 7),
+        fecha: new Date().toISOString(),
+        usuario: "TravelOps",
+        accion: action,
+        detalle: changes.map(change => `${change.campo}: ${change.anterior} -> ${change.nuevo}`).join("; "),
+        cambios: changes
+    });
+}
+
+function formatHistoryValue(value) {
+    if (value === null || value === undefined || value === "") return "Vacio";
+    if (typeof value === "number") return Number.isFinite(value) ? value.toFixed(2) : "0.00";
+    return String(value);
 }
 
 function escapeHTML(str) {
@@ -1485,4 +2234,327 @@ function renderCalendarAgenda() {
         opt.innerText = `${b.id} - ${b.cliente} (${escapeHTML(b.destino.split(',')[0])})`;
         bookingSelect.appendChild(opt);
     });
+}
+
+// ==========================================================================
+// NUEVAS CARACTERÍSTICAS: USUARIOS, HISTORIAL, ERRORES, ARCHIVOS
+// ==========================================================================
+
+const INITIAL_USERS = [
+    { id: 1, nombre: "Admin", username: "admin", password: "1234", rol: "Administrador", email: "admin@travelops.com", activo: true },
+    { id: 2, nombre: "Lenin Aguilar", username: "lenin.aguilar", password: "1234", rol: "Gerente General", email: "lenin@empresa.com", activo: true },
+    { id: 3, nombre: "María Torres", username: "maria.torres", password: "1234", rol: "Operario", email: "maria@empresa.com", activo: true }
+];
+
+function initializeUsersSystem() {
+    const stored = localStorage.getItem("travelOps_usuarios");
+    if (stored) {
+        state.usuarios = JSON.parse(stored);
+    } else {
+        state.usuarios = INITIAL_USERS;
+        localStorage.setItem("travelOps_usuarios", JSON.stringify(state.usuarios));
+    }
+    const savedUser = localStorage.getItem("travelOps_usuarioActual");
+    if (savedUser) {
+        state.usuarioActual = JSON.parse(savedUser);
+        hideLoginModal();
+    }
+}
+
+function setupLoginSystem() {
+    const loginForm = document.getElementById("login-form");
+    if (!loginForm) return;
+    loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const username = document.getElementById("login-username").value.trim();
+        const password = document.getElementById("login-password").value;
+        const remember = document.getElementById("login-remember").checked;
+        const user = state.usuarios.find(u => (u.username === username || u.email === username) && u.password === password && u.activo);
+        if (user) {
+            state.usuarioActual = user;
+            state.loginTime = new Date();
+            if (remember) {
+                localStorage.setItem("travelOps_usuarioActual", JSON.stringify(user));
+            }
+            hideLoginModal();
+            logEvent("login", `Usuario ${user.nombre} inició sesión`);
+            renderAllViews();
+            showAlert("¡Bienvenido! Sesión iniciada correctamente.", "success");
+        } else {
+            showAlert("Usuario o contraseña incorrecta", "danger");
+        }
+    });
+}
+
+function showLoginModal() {
+    const modal = document.getElementById("modal-login");
+    if (modal) {
+        modal.classList.add("active-modal");
+        document.body.style.overflow = "hidden";
+    }
+}
+
+function hideLoginModal() {
+    const modal = document.getElementById("modal-login");
+    if (modal) {
+        modal.classList.remove("active-modal");
+        document.body.style.overflow = "auto";
+    }
+}
+
+function logout() {
+    const userName = state.usuarioActual?.nombre || "Usuario";
+    logEvent("logout", `${userName} cerró sesión`);
+    state.usuarioActual = null;
+    state.loginTime = null;
+    localStorage.removeItem("travelOps_usuarioActual");
+    showLoginModal();
+    document.getElementById("login-form").reset();
+    renderAllViews();
+    showAlert("Sesión cerrada", "info");
+}
+
+function logEvent(tipo, descripcion, detalles = "") {
+    if (!state.usuarioActual && tipo !== "login") return;
+    const evento = {
+        id: Date.now(),
+        fecha: new Date(),
+        usuario: state.usuarioActual?.nombre || "Sistema",
+        rol: state.usuarioActual?.rol || "Desconocido",
+        tipo: tipo,
+        descripcion: descripcion,
+        detalles: detalles
+    };
+    state.historial.unshift(evento);
+    localStorage.setItem("travelOps_historial", JSON.stringify(state.historial));
+}
+
+function logError(tipo, descripcion, detalles = "") {
+    const error = {
+        id: Date.now(),
+        fecha: new Date(),
+        tipo: tipo,
+        descripcion: descripcion,
+        detalles: detalles,
+        estado: "pendiente",
+        usuario: state.usuarioActual?.nombre || "Sistema"
+    };
+    state.errores.unshift(error);
+    localStorage.setItem("travelOps_errores", JSON.stringify(state.errores));
+    console.error(`[${tipo}] ${descripcion}`, detalles);
+}
+
+function showAlert(message, type = "info") {
+    const alert = document.createElement("div");
+    alert.className = `alert-notification alert-${type}`;
+    alert.style.cssText = `position: fixed; top: 20px; right: 20px; padding: 15px 20px; background: ${type === 'success' ? 'var(--color-success)' : type === 'danger' ? 'var(--color-danger)' : type === 'warning' ? 'var(--color-warning)' : 'var(--color-info)'}; color: white; border-radius: var(--border-radius-md); box-shadow: var(--shadow-lg); z-index: 9999; font-weight: 500; animation: slideIn 0.3s ease-out;`;
+    alert.innerText = message;
+    document.body.appendChild(alert);
+    setTimeout(() => {
+        alert.style.animation = "slideOut 0.3s ease-out";
+        setTimeout(() => alert.remove(), 300);
+    }, 3000);
+}
+
+function renderHistorialView() {
+    const listBody = document.getElementById("historial-list-body");
+    const statBadge = document.getElementById("stat-total-cambios");
+    if (!listBody) return;
+    const filtroFecha = document.getElementById("filter-historial-fecha")?.value;
+    const filtroTipo = document.getElementById("filter-historial-tipo")?.value;
+    let filtrados = state.historial;
+    if (filtroFecha) {
+        filtrados = filtrados.filter(e => new Date(e.fecha).toISOString().split('T')[0] === filtroFecha);
+    }
+    if (filtroTipo) {
+        filtrados = filtrados.filter(e => e.tipo === filtroTipo);
+    }
+    if (statBadge) statBadge.innerText = state.historial.length;
+    if (filtrados.length === 0) {
+        listBody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 30px; color: var(--text-secondary);">No hay registros</td></tr>';
+        return;
+    }
+    listBody.innerHTML = filtrados.map(e => `<tr><td>${new Date(e.fecha).toLocaleString('es-PE')}</td><td><span class="badge bg-info">${e.usuario}</span></td><td><span class="badge bg-${getBadgeColor(e.tipo)}">${e.tipo}</span></td><td>${escapeHTML(e.descripcion)}</td><td style="font-size: 0.85rem; color: var(--text-muted);">${escapeHTML(e.detalles.substring(0, 50))}</td></tr>`).join("");
+}
+
+function renderUsuariosView() {
+    const listBody = document.getElementById("usuarios-list-body");
+    const totalBadge = document.getElementById("total-usuarios-badge");
+    if (!listBody) return;
+    if (totalBadge) totalBadge.innerText = state.usuarios.length;
+    listBody.innerHTML = state.usuarios.map(u => `<tr><td><div class="flex-align" style="gap: 10px;"><div style="width: 32px; height: 32px; border-radius: 50%; background: var(--color-accent); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.9rem;">${u.nombre.substring(0, 2).toUpperCase()}</div><div><div style="font-weight: 500;">${escapeHTML(u.nombre)}</div><div style="font-size: 0.8rem; color: var(--text-muted);">${u.username}</div></div></div></td><td><span class="badge bg-success">${u.rol}</span></td><td><span class="badge ${u.activo ? 'bg-success' : 'bg-danger'}">${u.activo ? 'Activo' : 'Inactivo'}</span></td><td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.8rem;" onclick="editUser(${u.id})">Editar</button></td></tr>`).join("");
+    if (state.usuarioActual) {
+        document.getElementById("current-user-avatar").innerText = state.usuarioActual.nombre.substring(0, 2).toUpperCase();
+        document.getElementById("current-user-name").innerText = state.usuarioActual.nombre;
+        document.getElementById("current-user-role").innerText = state.usuarioActual.rol;
+        document.getElementById("current-user-email").innerText = state.usuarioActual.email;
+        if (state.loginTime) {
+            document.getElementById("last-login-time").innerText = new Date(state.loginTime).toLocaleString('es-PE');
+            const duracion = Math.floor((Date.now() - new Date(state.loginTime).getTime()) / 60000);
+            document.getElementById("login-duration").innerText = `${duracion} minutos`;
+        }
+    }
+}
+
+function renderErroresView() {
+    const listBody = document.getElementById("errores-list-body");
+    const statActivos = document.getElementById("stat-errores-activos");
+    const statResueltos = document.getElementById("stat-errores-resueltos");
+    if (!listBody) return;
+    const filtroEstado = document.getElementById("filter-errores-estado")?.value;
+    let filtrados = state.errores;
+    if (filtroEstado) {
+        filtrados = filtrados.filter(e => e.estado === filtroEstado);
+    }
+    const activos = state.errores.filter(e => e.estado === "pendiente").length;
+    const resueltos = state.errores.filter(e => e.estado === "resuelto").length;
+    if (statActivos) statActivos.innerText = activos;
+    if (statResueltos) statResueltos.innerText = resueltos;
+    if (filtrados.length === 0) {
+        listBody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 30px; color: var(--text-secondary);">No hay errores registrados</td></tr>';
+        return;
+    }
+    listBody.innerHTML = filtrados.map(e => `<tr><td>${new Date(e.fecha).toLocaleString('es-PE')}</td><td><span class="badge bg-danger">${e.tipo}</span></td><td>${escapeHTML(e.descripcion)}</td><td><span class="badge ${e.estado === 'pendiente' ? 'bg-warning' : 'bg-success'}">${e.estado}</span></td><td>${e.estado === 'pendiente' ? `<button class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.8rem;" onclick="resolveError(${e.id})">Resolver</button>` : ''}</td></tr>`).join("");
+}
+
+function renderArchivosView() {
+    const formReservas = document.getElementById("archivo-reserva-id");
+    const totalBadge = document.getElementById("total-archivos-badge");
+    const listaRecientes = document.getElementById("archivos-lista-recientes");
+    if (formReservas) {
+        formReservas.innerHTML = '<option value="">-- Selecciona una reserva --</option>';
+        state.bookings.forEach(b => {
+            const opt = document.createElement("option");
+            opt.value = b.id;
+            opt.innerText = `${b.id} - ${escapeHTML(b.cliente)}`;
+            formReservas.appendChild(opt);
+        });
+    }
+    if (totalBadge) totalBadge.innerText = state.archivos.length;
+    if (listaRecientes) {
+        if (state.archivos.length === 0) {
+            listaRecientes.innerHTML = '<p style="text-align: center; padding: 30px 10px; color: var(--text-secondary); font-size: 0.9rem;">No hay archivos aún</p>';
+        } else {
+            listaRecientes.innerHTML = state.archivos.slice(0, 20).map(a => `<div style="padding: 10px; background: var(--bg-primary); border-radius: var(--border-radius-sm); border-left: 3px solid var(--color-info);"><div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;"><span>${getFileIcon(a.tipo)}</span><span style="font-weight: 500; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${a.nombre}">${escapeHTML(a.nombre)}</span><span style="font-size: 0.75rem; color: var(--text-muted);">${(a.tamaño / 1024).toFixed(1)} KB</span></div><div style="font-size: 0.75rem; color: var(--text-muted);">${a.reservaId} • ${new Date(a.fecha).toLocaleDateString('es-PE')}</div></div>`).join("");
+        }
+    }
+}
+
+function getFileIcon(tipo) {
+    const iconos = {'pasaporte': '📋', 'factura': '📄', 'itinerario': '✈️', 'voucher': '🏨', 'confirmacion': '✅', 'foto': '📷', 'audio': '🎵', 'otro': '📎'};
+    return iconos[tipo] || '📎';
+}
+
+function getBadgeColor(tipo) {
+    const colores = {'crear': 'success', 'actualizar': 'info', 'eliminar': 'danger', 'subir': 'warning', 'login': 'success', 'logout': 'info'};
+    return colores[tipo] || 'secondary';
+}
+
+function setupNewFeatures() {
+    initializeUsersSystem();
+    setupLoginSystem();
+    const btnLogout = document.getElementById("btn-logout");
+    if (btnLogout) {
+        btnLogout.addEventListener("click", logout);
+    }
+    const archivoForm = document.getElementById("archivo-upload-form");
+    if (archivoForm) {
+        archivoForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            handleFileUpload();
+        });
+    }
+    const dropzone = document.getElementById("archivo-dropzone");
+    if (dropzone) {
+        const fileInput = document.getElementById("archivo-input");
+        dropzone.addEventListener("click", () => fileInput.click());
+        dropzone.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            dropzone.style.backgroundColor = "var(--color-info-bg)";
+        });
+        dropzone.addEventListener("dragleave", () => {
+            dropzone.style.backgroundColor = "transparent";
+        });
+        dropzone.addEventListener("drop", (e) => {
+            e.preventDefault();
+            dropzone.style.backgroundColor = "transparent";
+            if (e.dataTransfer.files.length > 0) {
+                fileInput.files = e.dataTransfer.files;
+            }
+        });
+    }
+    const filterFecha = document.getElementById("filter-historial-fecha");
+    const filterTipo = document.getElementById("filter-historial-tipo");
+    const filterErrores = document.getElementById("filter-errores-estado");
+    if (filterFecha) filterFecha.addEventListener("change", renderHistorialView);
+    if (filterTipo) filterTipo.addEventListener("change", renderHistorialView);
+    if (filterErrores) filterErrores.addEventListener("change", renderErroresView);
+}
+
+function handleFileUpload() {
+    const fileInput = document.getElementById("archivo-input");
+    const reservaId = document.getElementById("archivo-reserva-id").value;
+    const tipo = document.getElementById("archivo-tipo").value;
+    const descripcion = document.getElementById("archivo-descripcion").value;
+    if (!reservaId || !tipo || !fileInput.files.length) {
+        showAlert("Por favor completa todos los campos", "warning");
+        return;
+    }
+    const file = fileInput.files[0];
+    if (file.size > 10 * 1024 * 1024) {
+        showAlert("El archivo es demasiado grande (máx. 10MB)", "danger");
+        return;
+    }
+    const archivo = {
+        id: Date.now(),
+        nombre: file.name,
+        tipo: tipo,
+        tamaño: file.size,
+        mimeType: file.type,
+        reservaId: reservaId,
+        descripcion: descripcion,
+        fecha: new Date(),
+        usuario: state.usuarioActual?.nombre || "Usuario"
+    };
+    state.archivos.unshift(archivo);
+    localStorage.setItem("travelOps_archivos", JSON.stringify(state.archivos));
+    logEvent("subir", `Archivo subido: ${file.name}`, `Tipo: ${tipo}, Reserva: ${reservaId}`);
+    const booking = state.bookings.find(b => b.id === reservaId);
+    if (booking) {
+        booking.archivos = booking.archivos || [];
+        booking.archivos.push(archivo);
+    }
+    document.getElementById("archivo-upload-form").reset();
+    renderArchivosView();
+    showAlert("Archivo subido correctamente", "success");
+}
+
+function editUser(userId) {
+    showAlert("Edición de usuarios disponible próximamente", "info");
+}
+
+function resolveError(errorId) {
+    const error = state.errores.find(e => e.id === errorId);
+    if (error) {
+        error.estado = "resuelto";
+        localStorage.setItem("travelOps_errores", JSON.stringify(state.errores));
+        logEvent("actualizar", `Error ${errorId} marcado como resuelto`);
+        renderErroresView();
+        showAlert("Error marcado como resuelto", "success");
+    }
+}
+
+function loadStorageData() {
+    const historialStored = localStorage.getItem("travelOps_historial");
+    if (historialStored) {
+        state.historial = JSON.parse(historialStored);
+    }
+    const erroresStored = localStorage.getItem("travelOps_errores");
+    if (erroresStored) {
+        state.errores = JSON.parse(erroresStored);
+    }
+    const archivosStored = localStorage.getItem("travelOps_archivos");
+    if (archivosStored) {
+        state.archivos = JSON.parse(archivosStored);
+    }
 }

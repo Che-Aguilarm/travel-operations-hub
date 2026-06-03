@@ -1497,6 +1497,7 @@ textarea {
 
 .reserva-section.border-vuelo { border-left-color: var(--color-info); }
 .reserva-section.border-hotel { border-left-color: var(--color-success); }
+.reserva-section.border-files { border-left-color: var(--color-info); }
 .reserva-section.bg-light-card {
     background-color: var(--bg-primary);
     border: 1px solid var(--border-color);
@@ -1985,6 +1986,70 @@ textarea {
     color: var(--color-danger-hover);
 }
 
+.modal-files-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 140px;
+    overflow-y: auto;
+    background-color: var(--bg-primary);
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    margin-bottom: 12px;
+}
+
+.modal-file-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-primary);
+    text-decoration: none;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    padding: 8px 10px;
+    font-size: 0.78rem;
+}
+
+.modal-file-link:hover {
+    border-color: var(--color-info);
+    color: var(--color-info);
+}
+
+.modal-file-name {
+    font-weight: 600;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.modal-file-meta,
+.empty-files-message,
+.upload-status {
+    color: var(--text-muted);
+    font-size: 0.72rem;
+}
+
+.file-upload-inline {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+    align-items: center;
+}
+
+.file-upload-inline input[type="file"] {
+    padding: 9px;
+    font-size: 0.78rem;
+}
+
+.upload-status {
+    min-height: 18px;
+    margin-top: 8px;
+}
+
 /* RESPONSIVIDAD GENERAL */
 @media (max-width: 1200px) {
     .ventas-grid {
@@ -2045,4 +2110,240 @@ textarea {
         grid-template-columns: 1fr;
         gap: 20px;
     }
+}
+
+/* NUEVOS ESTILOS PARA CARACTERÍSTICAS ADICIONALES */
+
+/* MODAL LOGIN */
+.modal-overlay.active-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 10000;
+}
+
+.modal-overlay {
+    display: none;
+}
+
+/* ANIMACIONES */
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+}
+
+/* ALERTAS */
+.alert-notification {
+    box-shadow: var(--shadow-lg);
+}
+
+/* DIVISOR DE MENÚ */
+.menu-divider-menu {
+    height: 1px;
+    background: var(--border-color);
+    margin: 12px 0;
+}
+
+/* ESTILOS PARA BADGES */
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.badge.bg-success {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+}
+
+.badge.bg-info {
+    background: var(--color-info-bg);
+    color: var(--color-info);
+}
+
+.badge.bg-warning {
+    background: var(--color-warning-bg);
+    color: var(--color-warning);
+}
+
+.badge.bg-danger {
+    background: var(--color-danger-bg);
+    color: var(--color-danger);
+}
+
+.badge.bg-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+}
+
+.badge-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    margin-left: 6px;
+}
+
+.pulse-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* UTILIDADES */
+.justify-between {
+    justify-content: space-between;
+}
+
+.flex-align {
+    display: flex;
+    align-items: center;
+}
+
+/* RESPONSIVO PARA NUEVAS VISTAS */
+@media (max-width: 1200px) {
+    .users-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .archivos-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* ESTILOS PARA MODAL GRANDE */
+.modal-large {
+    max-width: 900px;
+}
+
+/* ESTILOS PARA TABLA PREMIUM */
+.table-premium {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-card);
+}
+
+.table-premium thead {
+    background: var(--bg-primary);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.table-premium th {
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.table-premium tbody tr {
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s;
+}
+
+.table-premium tbody tr:hover {
+    background: var(--bg-card-hover);
+}
+
+.table-premium td {
+    padding: 12px 15px;
+    color: var(--text-primary);
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+/* ESTILOS PARA TEXTO */
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-success {
+    color: var(--color-success);
+}
+
+.text-danger {
+    color: var(--color-danger);
+}
+
+.text-info {
+    color: var(--color-info);
+}
+
+.text-warning {
+    color: var(--color-warning);
+}
+
+/* ESTILOS PARA FORMULARIOS EN MODAL */
+#login-form .form-group {
+    margin-bottom: 16px;
+}
+
+#login-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+#login-form input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+#login-form input:focus {
+    outline: none;
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
