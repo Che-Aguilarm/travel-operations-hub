@@ -1,0 +1,9 @@
+[
+  {
+    "id": 1,
+    "cliente": "Juan Pérez",
+    "destino": "Cancún",
+    "monto": 1500,
+    "estado": "Confirmado"
+  }
+]
